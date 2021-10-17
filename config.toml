@@ -1,0 +1,109 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "Y.CH.Y"
+theme = "cactus"
+copyright = "Y.CH.Y" # cactus will use title if copyright is not set
+disqusShortname = "example" # Used when comments is enabled. Cactus will use site title if not set
+googleAnalytics = "G-X1L70M4MM0"
+
+
+# summaryLength = 2
+
+# Main menu which appears below site header.
+[[menu.main]]
+name = "首页"
+url = "/"
+weight = 1
+
+#[[menu.main]]
+#name = "八股文"
+#url = "/interview"
+#weight = 5
+
+#[[menu.main]]
+#name = "日志"
+#url = "/journal"
+#weight = 6
+
+#[[menu.main]]
+#name = "课程"
+#url = "/oc"
+#weight = 4
+
+
+#[[menu.main]]
+#name = "Flow"
+#url = "/flow"
+#weight = 11
+
+[[menu.main]]
+name = "关于"
+url = "/about"
+weight = 15
+
+#[[menu.main]]
+#name = "Notes"
+#url = "/notes"
+#weight = 3
+
+#[[menu.main]]
+#name = "Tags"
+#url = "/tags"
+#weight = 3
+
+#[[menu.main]]
+#name = "About"
+#url = "/about"
+#weight = 4
+
+[markup]
+  [markup.tableOfContents]
+    endLevel = 4
+    ordered = true
+    startLevel = 1
+  [markup.highlight]
+    style = "monokailight"
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  colortheme = "white" # dark, light, white, or classic
+  rss = true # generate rss feed. default value is false
+  googleAnalyticsAsync = true # use asynchronous tracking. Synchronous tracking by default
+
+  # Home page settings
+  description = ""
+  mainSection = "notes" # your main section
+  showAllPostsOnHomePage = false # default
+  showAllPostsArchive = true
+  postsOnHomePage = 123456 # this option will be ignored if showAllPostsOnHomePage is set to true
+  tagsOverview = true # show tags overview by default.
+  showProjectsList = false # show projects list by default (if projects data file exists).
+  projectsUrl = "https://github.com/gohugoio" # title link for projects list
+  css = ["css/custom.css"]
+
+
+
+  # https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
+  dateFormat = "Jan 02" # default
+
+  # Post page settings
+  show_updated = true # default
+
+  [params.comments]
+    enabled = false # default
+    engine = "disqus" # more supported engines will be added.
+
+  # the value of name should be an valid font awesome icon name (brands type)
+  # https://fontawesome.com/icons?d=gallery&s=brands
+ # [[params.social]]
+ #   name = "github"
+ #   link = "https://github.com/gohugoio"
+ # [[params.social]]
+ #   name = "linkedin"
+ #   link = "https://www.linkedin.com/company/github/"
+ # [[params.social]]
+ #   name = "email"
+ #   link = "example@example.com"  # no need for "mailto:" in the head

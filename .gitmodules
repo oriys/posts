@@ -1,0 +1,6 @@
+[submodule "content/themes/cactus"]
+	path = content/themes/cactus
+	url = https://github.com/oriys/hugo-theme-cactus.git
+[submodule "themes/cactus"]
+	path = themes/cactus
+	url = https://github.com/oriys/hugo-theme-cactus.git

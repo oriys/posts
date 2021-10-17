@@ -1,0 +1,96 @@
+---
+title: "APUE::UNIX System Overview"
+date: 2021-08-01T00:43:37+08:00
+draft: false
+---
+
+## UNIX System Overview
+
+- an operating system can be defined as the software that controls the hardware resources of the computer and provides an environment under which programs can run
+  - Kernel is relatively small and resides at the core of the environment
+  - The interface to the kernel is a layer of software called the system calls
+  - Libraries of common functions are built on top of the system call interface, but applications are free to use both
+  - The shell is a special application that provides an interface for running other applications
+- In a broad sense, an operating system consists of the kernel and all the other software that makes a computer useful and gives the computer its personality. This other software includes system utilities, applications, shells, libraries of common functions, and so on
+- shell
+  - Bourne shell
+  - C shell
+  - Korn shell
+  - Bourne-again shell
+  - TENEX C shell
+- File System
+  - The UNIX file system is a hierarchical arrangement of directories and files
+  - Everything starts in the directory called root, whose name is the single character /
+  - A directory is a file that contains directory entries
+  - The stat and fstat functions return a structure of information containing all the attributes of a file
+- Filename
+  - The names in a directory are called filenames
+  - The only two characters that cannot appear in a filename are the slash character (/) and the null character.
+  - POSIX.1 recommends restricting filenames to consist of the following characters: letters (a-z, A-Z), numbers (0-9), period (.), dash (-), and underscore (\_)
+  - Two filenames are automatically created whenever a new directory is created: . (called dot) and .. (called dot-dot). Dot refers to the current directory, and dot-dot refers to the parent directory. In the root directory, dot-dot is the same as dot.
+- Pathname
+  - A sequence of one or more filenames, separated by slashes and optionally starting with a slash, forms a pathname
+  - absolute pathname
+  - relative pathname
+- Working Directory
+  - the directory from which all relative pathnames are interpreted
+- Home Directory
+  - when we log in, the working directory is set to our home directory
+- File Descriptors
+  - File descriptors are normally small non-negative integers that the kernel uses to identify the files accessed by a process.
+- Standard Input, Standard Output, and Standard Error
+  - all shells open three descriptors whenever a new program is run
+  - then all three are connected to the terminal
+- Unbuffered I/O
+  - Unbuffered I/O is provided by the functions open, read, write, lseek, and close
+  - These functions all work with file descriptors
+- Programs and Processes
+  - Programs
+    - A program is an executable file residing on disk in a directory
+    - A program is read into memory and is executed by the kernel as a result of one of the seven exec functions
+  - Processes and Process ID
+    - An executing instance of a program is called a process
+    - The UNIX System guarantees that every process has a unique numeric identifier called the process ID
+- Process Control
+  - fork
+  - exec
+  - waitpid
+- Threads and Thread IDs
+  - All threads within a process share the same address space, file descriptors, stacks, and process-related attributes
+  - Each thread executes on its own stack
+  - threads are identified by IDs - Thread IDs
+- Error Handling
+  - When an error occurs in one of the UNIX System functions, a negative value is often returned, and the integer errno is usually set to a value that tells why
+  - The errors defined in \<errno.h\> can be divided into two categories: fatal and nonfatal
+  - A fatal error has no recovery action. The best we can do is print an error message on the user’s screen or to a log file, and then exit.
+  - Nonfatal errors, on the other hand, can sometimes be dealt with more robustly. Most nonfatal errors are temporary, such as a resource shortage, and might not occur when there is less activity on the system.
+- User Identification
+  - User ID
+    - This user ID is assigned by the system administrator when our login name is assigned, and we cannot change it
+    - The user ID is normally assigned to be unique for every user
+    - the kernel uses the user ID to check whether we have the appropriate permissions to perform certain operations
+    - We call the user whose user ID is 0 either root or the superuser
+  - Group ID
+    - Groups are normally used to collect users together into projects or departments. This allows the sharing of resources, such as files, among members of the same group.
+- Signals
+  - Signals are a technique used to notify a process that some condition has occurred
+  - The process has three choices for dealing with the signal
+    - Ignore the signal
+    - Let the default action occur
+    - Provide a function that is called when the signal occurs
+- Time Values
+  - Calendar time
+    - This value counts the number of seconds since the Epoch: 00:00:00 January 1, 1970
+  - Process time
+    - This is also called CPU time and measures the central processor resources used by a process. Process time is measured in clock ticks, which have historically been 50, 60, or 100 ticks per second
+  - UNIX System maintains three values for a process:
+    - Clock time
+      - amount of time the process takes to run
+    - User CPU time
+      - CPU time attributed to user instructions
+    - system CPU
+      - CPU time attributed to the kernel when it executes on behalf of the process
+- System Calls and Library Functions
+  - All implementations of the UNIX System provide a well-defined, limited number of entry points directly into the kernel called system calls
+  - Its definition is in the C language
+  - The technique used on UNIX systems is for each system call to have a function of the same name in the standard C library

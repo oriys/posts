@@ -1,0 +1,76 @@
+---
+title: "APUE::Threads"
+date: 2021-08-11T00:43:37+08:00
+draft: false
+---
+
+## Threads
+
+- Thread Concepts
+  - simplify code that deals with asynchronous events by assigning a separate thread to handle each event type
+  - Threads automatically have access to the same memory address space and file descriptors
+  - Some problems can be partitioned so that overall program throughput can be improved
+  - interactive programs can realize improved response time by using multiple threads
+  - The benefits of a multithreaded programming model can be realized even if your program is running on a uniprocessor
+  - A thread consists of the information necessary to represent an execution context within a process
+    - a thread ID that identifies the thread within a process
+    - a set of register values
+    - a stack
+    - a scheduling priority and policy
+    - a signal mask
+    - an errno variable
+    - thread-specific data
+  - Everything within a process is sharable among the threads in a process
+    - text of the executable program
+    - the program’s global and heap memory, the stacks
+    - the file descriptors
+- Thread Identification
+  - every thread has a thread ID
+  - the thread ID has significance only within the context of the process to which it belongs
+  - A thread ID is represented by the pthread_t data type
+- Thread Creation
+  - When a thread is created, there is no guarantee which will run first: the newly created thread or the calling thread
+  - The memory location pointed to by tidp is set to the thread ID of the newly created thread when pthread_create returns successfully
+  - pthread functions usually return an error code when they fail. They don’t set errno like the other POSIX functions
+- Thread Termination
+  - If any thread within a process calls exit, \_Exit, or \_exit, then the entire process terminates
+  - the default action is to terminate the process, a signal sent to a thread will terminate the entire process
+  - A single thread can exit in three ways, thereby stopping its flow of control, without terminating the entire process
+    - The thread can simply return from the start routine. The return value is the thread’s exit code
+    - The thread can be canceled by another thread in the same process
+    - The thread can call pthread_exit
+  - One thread can request that another in the same process be canceled by calling the pthread_cancel function
+    - However, a thread can elect to ignore or otherwise control how it is canceled
+    - thread_cancel doesn’t wait for the thread to terminate; it merely makes the request
+  - A thread can arrange for functions to be called when it exits pthread_cleanup_push
+    - Makes a call to pthread_exit
+    - Responds to a cancellation request
+    - Makes a call to pthread_cleanup_pop with a nonzero execute argument
+  - Thread Synchronization
+    - When multiple threads of control share the same memory, we need to make sure that each thread sees a consistent view of its data
+    - Mutexes
+      - A mutex is basically a lock that we set (lock) before accessing a shared resource and release (unlock) when we’re done
+      - we must first initialize it by either setting it to the constant PTHREAD_MUTEX_INITIALIZER (for statically allocated mutexes only) or calling pthread_mutex_init
+      - To lock a mutex, we call pthread_mutex_lock
+      - To unlock a mutex, we call pthread_mutex_unlock
+  - Deadlock Avoidance
+    - Deadlocks can be avoided by carefully controlling the order in which mutexes are locked
+    - assume that you have two mutexes, A and B, that you need to lock at the same time. If all threads always lock mutex A before mutex B, no deadlock can occur from the use of the two mutexes
+  - pthread_mutex_timedlock
+    - The timeout specifies how long we are willing to wait in terms of absolute time (as opposed to relative time; we specify that we are willing to block until time X instead of saying that we are willing to block for Y seconds)
+  - Reader–writer locks
+    - Only one thread at a time can hold a reader–writer lock in write mode, but multiple threads can hold a reader–writer lock in read mode at the same time
+    - Reader–writer locks are well suited for situations in which data structures are read more often than they are modified
+  - Reader–Writer Locking with Timeouts
+    - pthread_rwlock_timedwrlock
+  - Condition Variables
+    - When used with mutexes, condition variables allow threads to wait in a race-free way for arbitrary conditions to occur
+  - Spin Locks
+    - the process is blocked by busy-waiting (spinning) until the lock can be acquired
+      - A spin lock could be used in situations where locks are held for short periods of times and threads don’t want to incur the cost of being descheduled
+    - Many mutex implementations are so efficient that the performance of applications using mutex locks is equivalent to their performance if they had used spin locks
+    - The interfaces for spin locks are similar to those for mutexes, making it relatively easy to replace one with the other
+    - if a spin lock is currently unlocked, then the pthread_spin_lock function can lock it without spinning. If the thread already has it locked, the results are undefined. The call to pthread_spin_lock could fail with the EDEADLK error (or some other error), or the call could spin indefinitely. The behavior depends on the implementation. If we try to unlock a spin lock that is not locked, the results are also undefined
+  - Barriers
+    - Barriers are a synchronization mechanism that can be used to coordinate multiple threads working in parallel
+    - A barrier allows each thread to wait until all cooperating threads have reached the same point, and then continue executing from there
