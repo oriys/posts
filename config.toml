@@ -37,9 +37,9 @@ weight = 1
 #weight = 11
 
 [[menu.main]]
-name = "书单"
-url = "/books"
-weight = 15
+##name = "书单"
+##url = "/books"
+##weight = 15
 ##[[menu.main]]
 ##name = "关于"
 ##url = "/about"
@@ -91,7 +91,7 @@ weight = 15
 
 
   # https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
-  dateFormat = "Jan 02" # default
+  dateFormat = "2006 Jan 02" # default
 
   # Post page settings
   show_updated = true # default
