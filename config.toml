@@ -37,9 +37,13 @@ weight = 1
 #weight = 11
 
 [[menu.main]]
-name = "关于"
-url = "/about"
+name = "书单"
+url = "/books"
 weight = 15
+##[[menu.main]]
+##name = "关于"
+##url = "/about"
+##weight = 15
 
 #[[menu.main]]
 #name = "Notes"
