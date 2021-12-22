@@ -16,27 +16,6 @@ url = "/"
 weight = 1
 
 #[[menu.main]]
-#name = "八股文"
-#url = "/interview"
-#weight = 5
-
-#[[menu.main]]
-#name = "日志"
-#url = "/journal"
-#weight = 6
-
-#[[menu.main]]
-#name = "课程"
-#url = "/oc"
-#weight = 4
-
-
-#[[menu.main]]
-#name = "Flow"
-#url = "/flow"
-#weight = 11
-
-[[menu.main]]
 ##name = "书单"
 ##url = "/books"
 ##weight = 15
