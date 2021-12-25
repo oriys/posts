@@ -13,7 +13,7 @@ googleAnalytics = "G-X1L70M4MM0"
 [[menu.main]]
 name = "首页"
 url = "/"
-weight = 1
+weight = 2
 
 #[[menu.main]]
 ##name = "书单"
