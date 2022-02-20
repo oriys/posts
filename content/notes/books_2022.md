@@ -17,3 +17,4 @@ draft: false
 | [是我把你蠢哭了吗](https://book.douban.com/subject/35198304/)                            | 认知 |
 | [饱食穷民](https://book.douban.com/subject/34895571/)                                    | 社会 |
 | [妻子们的思秋期](https://book.douban.com/subject/34894713/)                              | 社会 |
+| [流星之绊](https://book.douban.com/subject/26774897/)                             |推理|
