@@ -41,6 +41,7 @@ weight = 15
   # Home page settings
   description = ""
   mainSection = "posts" # your main section
+  mainSections = ["posts"]
   showAllPostsOnHomePage = false # default
   showAllPostsArchive = false
   postsOnHomePage = 123456 # this option will be ignored if showAllPostsOnHomePage is set to true

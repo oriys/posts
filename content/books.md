@@ -36,7 +36,7 @@ draft: false
 [深入理解Java虚拟机::后端编译与优化](/notes/understand_the_jvm_11/)  
 [深入理解Java虚拟机::Java 内存模型与线程](/notes/understand_the_jvm_12/)  
 [深入理解Java虚拟机::线程安全和锁优化](/notes/understand_the_jvm_13/)
-## 计算机网络自顶向下方法
+### 计算机网络自顶向下方法
 [计算机网络自顶向下方法::计算机网络和因特网](/notes/computer_network_a_topdown_approach_01/)  
 [计算机网络自顶向下方法::应用层](/notes/computer_network_a_topdown_approach_02/)  
 [计算机网络自顶向下方法::运输层](/notes/computer_network_a_topdown_approach_03/)  
@@ -44,3 +44,19 @@ draft: false
 [计算机网络自顶向下方法::网络层::控制平面](/notes/computer_network_a_topdown_approach_05/)  
 [计算机网络自顶向下方法::链路层与局域网](/notes/computer_network_a_topdown_approach_06/)  
 [计算机网络自顶向下方法::计算机网络中的安全](/notes/computer_network_a_topdown_approach_08/)
+### 系统设计
+[系统设计::从零到一百万](/notes/system_design_interview_01/)  
+[系统设计::粗略评估](/notes/system_design_interview_02/)  
+[系统设计::系统设计面试框架](/notes/system_design_interview_03/)  
+[系统设计::设计一个限流器](/notes/system_design_interview_04/)  
+[系统设计::设计一致性哈希](/notes/system_design_interview_05/)  
+[系统设计::设计键值存储](/notes/system_design_interview_06/)  
+[系统设计::在分布式系统中设计一个唯一ID生成器](/notes/system_design_interview_07/)  
+[系统设计::设计短链接](/notes/system_design_interview_08/)  
+[系统设计::设计网络爬虫](/notes/system_design_interview_09/)  
+[系统设计::设计一个推送系统](/notes/system_design_interview_10/)  
+[系统设计::设计一个新闻源系统](/notes/system_design_interview_11/)  
+[系统设计::设计一个聊天系统](/notes/system_design_interview_12/)  
+[系统设计::设计一个搜索自动补全系统](/notes/system_design_interview_13/)  
+[系统设计::设计YOUTUBE](/notes/system_design_interview_14/)  
+[系统设计::设计谷歌硬盘](/notes/system_design_interview_15/)
