@@ -9,7 +9,7 @@ draft: false
 ## 2022
 ### 领域驱动设计 
 [领域驱动设计::运用领域模型](/notes/ddd_01/)  
-[领域驱动设计::领域驱动设计的构造块](notes/ddd_02/)
+[领域驱动设计::领域驱动设计的构造块](/notes/ddd_02/)
 ## 2021
 ### 现代操作系统
 [现代操作系统::引论](/notes/modern_operating_systems_introduction/)  
