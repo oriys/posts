@@ -15,29 +15,11 @@ name = "首页"
 url = "/"
 weight = 2
 
-#[[menu.main]]
-##name = "书单"
-##url = "/books"
-##weight = 15
-##[[menu.main]]
-##name = "关于"
-##url = "/about"
-##weight = 15
+[[menu.main]]
+name = "笔记"
+url = "/books"
+weight = 15
 
-#[[menu.main]]
-#name = "Notes"
-#url = "/notes"
-#weight = 3
-
-#[[menu.main]]
-#name = "Tags"
-#url = "/tags"
-#weight = 3
-
-#[[menu.main]]
-#name = "About"
-#url = "/about"
-#weight = 4
 
 [markup]
   [markup.tableOfContents]
@@ -58,9 +40,9 @@ weight = 2
 
   # Home page settings
   description = ""
-  mainSection = "notes" # your main section
+  mainSection = "posts" # your main section
   showAllPostsOnHomePage = false # default
-  showAllPostsArchive = true
+  showAllPostsArchive = false
   postsOnHomePage = 123456 # this option will be ignored if showAllPostsOnHomePage is set to true
   tagsOverview = true # show tags overview by default.
   showProjectsList = false # show projects list by default (if projects data file exists).
@@ -78,15 +60,3 @@ weight = 2
   [params.comments]
     enabled = false # default
     engine = "disqus" # more supported engines will be added.
-
-  # the value of name should be an valid font awesome icon name (brands type)
-  # https://fontawesome.com/icons?d=gallery&s=brands
- # [[params.social]]
- #   name = "github"
- #   link = "https://github.com/gohugoio"
- # [[params.social]]
- #   name = "linkedin"
- #   link = "https://www.linkedin.com/company/github/"
- # [[params.social]]
- #   name = "email"
- #   link = "example@example.com"  # no need for "mailto:" in the head
