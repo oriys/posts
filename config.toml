@@ -20,6 +20,11 @@ name = "笔记"
 url = "/books"
 weight = 15
 
+[[menu.main]]
+name = "杂"
+url = "/misc"
+weight = 16
+
 
 [markup]
   [markup.tableOfContents]
