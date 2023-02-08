@@ -333,7 +333,7 @@ func RunWindowsServer() {
 
 ### 接口定义
 
-在`main()`函数中，里面有个`initialize.Routers()`函数，这个函数是用来初始化路由的，我们先来看看这个函数的定义。
+在`main()`函数中，里面有个`initialize.Routers()`函数，这个函数是用来初始化路由的，先来看看这个函数的定义。
 
 ```go
 func Routers() *gin.Engine {
@@ -418,7 +418,7 @@ func Routers() *gin.Engine {
 
 ### 路由注册
 
-选择一个路由查看路由是怎么注册的，比如`InitUserRouter`。
+选择一个路由查看路由是怎么注册的，比如`InitApiRouter`。
 
 ```go
 type ApiRouter struct{}
@@ -446,7 +446,7 @@ func (s *ApiRouter) InitApiRouter(Router *gin.RouterGroup) {
 
 ### 中间件实现
 
-在上文中我们可以使用`gin.use`来注册中间件，现在我们来看一下如何实现一个中间件。
+在上文中使用`gin.use`来注册中间件，现在来看一下如何实现一个中间件。
 
 ```go
 func OperationRecord() gin.HandlerFunc {
@@ -544,5 +544,125 @@ func OperationRecord() gin.HandlerFunc {
 }
 ```
 
-在这段代码的实现中，返回了一个入参是`gin.Context`，返回值是`gin.HandlerFunc`的函数，这个函数的作用是在每次请求的时候都会执行，我们可以在这个函数中实现一些逻辑，比如记录日志，记录请求的参数，记录请求的响应等等。  
-在可以看到这个函数中我们使用了`gin.Context`的`Next`方法，这个方法的作用是执行下一个中间件，如果没有下一个中间件，那么就会执行路由的处理函数。
+在这段代码的实现中，返回了一个入参是`gin.Context`，返回值是`gin.HandlerFunc`的函数，这个函数的作用是在每次请求的时候都会执行，可以在这个函数中实现一些逻辑，比如记录日志，记录请求的参数，记录请求的响应等等。  
+在可以看到这个函数中使用了`gin.Context`的`Next`方法，这个方法的作用是执行下一个中间件，如果没有下一个中间件，那么就会执行路由的处理函数。
+
+
+
+
+
+### 请求实现
+
+```go
+func (s *SystemApiApi) CreateApi(c *gin.Context) {
+	var api system.SysApi
+	err := c.ShouldBindJSON(&api)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	err = utils.Verify(api, utils.ApiVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	err = apiService.CreateApi(api)
+	if err != nil {
+		global.GVA_LOG.Error("创建失败!", zap.Error(err))
+		response.FailWithMessage("创建失败", c)
+		return
+	}
+	response.OkWithMessage("创建成功", c)
+}
+```
+
+在这段代码中，我们可以看到，首先使用了`gin.Context`的`ShouldBindJSON`方法，这个方法的作用是将请求的参数绑定到结构体中，这个方法的入参是一个指针，这个指针指向的结构体就是我们要绑定的结构体，这个方法会将请求的参数绑定到这个结构体中，如果绑定失败，那么就会返回一个错误，这个错误就是绑定失败的原因。
+
+在后面，使用使用了`utils.Verify`来检验入参数，方法接受两个参数，第一个参数是要检验的结构体，第二个参数是检验的规则。
+
+```go
+func Verify(st interface{}, roleMap Rules) (err error) {
+	compareMap := map[string]bool{
+		"lt": true,
+		"le": true,
+		"eq": true,
+		"ne": true,
+		"ge": true,
+		"gt": true,
+	}
+
+	typ := reflect.TypeOf(st)
+	val := reflect.ValueOf(st) // 获取reflect.Type类型
+
+	kd := val.Kind() // 获取到st对应的类别
+	if kd != reflect.Struct {
+		return errors.New("expect struct")
+	}
+	num := val.NumField()
+	// 遍历结构体的所有字段
+	for i := 0; i < num; i++ {
+		tagVal := typ.Field(i)
+		val := val.Field(i)
+		if tagVal.Type.Kind() == reflect.Struct {
+			if err = Verify(val.Interface(), roleMap); err != nil {
+				return err
+			}
+		}
+		if len(roleMap[tagVal.Name]) > 0 {
+			for _, v := range roleMap[tagVal.Name] {
+				switch {
+				case v == "notEmpty":
+					if isBlank(val) {
+						return errors.New(tagVal.Name + "值不能为空")
+					}
+				case strings.Split(v, "=")[0] == "regexp":
+					if !regexpMatch(strings.Split(v, "=")[1], val.String()) {
+						return errors.New(tagVal.Name + "格式校验不通过")
+					}
+				case compareMap[strings.Split(v, "=")[0]]:
+					if !compareVerify(val, v) {
+						return errors.New(tagVal.Name + "长度或值不在合法范围," + v)
+					}
+				}
+			}
+		}
+	}
+	return nil
+}
+```
+
+在这段代码中，首先使用了`reflect`包中的`TypeOf`和`ValueOf`方法，这两个方法的作用是获取到结构体的类型和值，然后使用`Kind`方法获取到结构体的类型，如果类型不是结构体，那么就会返回一个错误，如果是结构体，那么就会获取到结构体的字段数量，然后遍历结构体的所有字段，如果字段的类型是结构体，那么就会递归调用`Verify`方法，如果字段的类型不是结构体，那么就会获取到字段的名称，然后判断这个字段的名称是否在检验规则中，如果在，那么就会遍历这个字段的所有检验规则，然后根据规则的不同，调用不同的方法来检验这个字段的值。
+
+因为缺少了java的注解功能，所以校验单独卸载了一个文件中，下面是这个文件的一个内容。
+
+```go
+var (
+	IdVerify               = Rules{"ID": []string{NotEmpty()}}
+	ApiVerify              = Rules{"Path": {NotEmpty()}, "Description": {NotEmpty()}, "ApiGroup": {NotEmpty()}, "Method": {NotEmpty()}}
+	MenuVerify             = Rules{"Path": {NotEmpty()}, "ParentId": {NotEmpty()}, "Name": {NotEmpty()}, "Component": {NotEmpty()}, "Sort": {Ge("0")}}
+	MenuMetaVerify         = Rules{"Title": {NotEmpty()}}
+	LoginVerify            = Rules{"CaptchaId": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
+	RegisterVerify         = Rules{"Username": {NotEmpty()}, "NickName": {NotEmpty()}, "Password": {NotEmpty()}, "AuthorityId": {NotEmpty()}}
+	PageInfoVerify         = Rules{"Page": {NotEmpty()}, "PageSize": {NotEmpty()}}
+	CustomerVerify         = Rules{"CustomerName": {NotEmpty()}, "CustomerPhoneData": {NotEmpty()}}
+	AutoCodeVerify         = Rules{"Abbreviation": {NotEmpty()}, "StructName": {NotEmpty()}, "PackageName": {NotEmpty()}, "Fields": {NotEmpty()}}
+	AutoPackageVerify      = Rules{"PackageName": {NotEmpty()}}
+	AuthorityVerify        = Rules{"AuthorityId": {NotEmpty()}, "AuthorityName": {NotEmpty()}}
+	AuthorityIdVerify      = Rules{"AuthorityId": {NotEmpty()}}
+	OldAuthorityVerify     = Rules{"OldAuthorityId": {NotEmpty()}}
+	ChangePasswordVerify   = Rules{"Password": {NotEmpty()}, "NewPassword": {NotEmpty()}}
+	SetUserAuthorityVerify = Rules{"AuthorityId": {NotEmpty()}}
+)
+```
+
+接下来就是执行service方法的部分,里面包含的DB操作使用了gorm框架，这里就不多说了，下面是一个service方法的例子。
+
+```go
+func (apiService *ApiService) CreateApi(api system.SysApi) (err error) {
+	if !errors.Is(global.GVA_DB.Where("path = ? AND method = ?", api.Path, api.Method).First(&system.SysApi{}).Error, gorm.ErrRecordNotFound) {
+		return errors.New("存在相同api")
+	}
+	return global.GVA_DB.Create(&api).Error
+}
+```
+
