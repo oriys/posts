@@ -209,7 +209,7 @@ func Gorm() *gorm.DB {
 ```go
 func GormMysql() *gorm.DB {
 	m := global.GVA_CONFIG.Mysql
-	if m.Dbname == "" {
+	if m.Dbname == "" {co
 		return nil
 	}
 	mysqlConfig := mysql.Config{
@@ -665,4 +665,58 @@ func (apiService *ApiService) CreateApi(api system.SysApi) (err error) {
 	return global.GVA_DB.Create(&api).Error
 }
 ```
+
+### 国际化
+
+gva使用了`github.com/nicksnyder/go-i18n/v2/i18n`这个包来实现国际化，这个包的使用方法和java的`ResourceBundle`类似，下面是一个例子。
+
+```go
+func (t *Translator) InitTranslator(initLang string, langPath string) {
+
+	langFiles, err := ioutil.ReadDir(langPath)
+	if err != nil {
+		fmt.Printf("InitTranslator() Error: %v", err)
+	}
+
+	t.bundle = i18n.NewBundle(language.English)
+	t.bundle.RegisterUnmarshalFunc("json", json.Unmarshal)
+
+	for _, langFile := range langFiles {
+		if !langFile.IsDir() {
+			langFilePath := langPath + langFile.Name()
+			fmt.Printf("Language file: %s loaded.\r\n", langFilePath)
+			t.bundle.MustLoadMessageFile(langFilePath)
+		}
+	}
+
+	t.localizer = i18n.NewLocalizer(t.bundle, initLang) // should add additionl check here
+	t.IsInit = true
+	// end of adding
+}
+
+func (t *Translator) SetTranslatorLanguage(lang string) {
+	t.localizer = i18n.NewLocalizer(t.bundle, lang)
+}
+
+func (t *Translator) TranslateMessage(messageID string) string {
+	translatedMsg, err := t.localizer.LocalizeMessage(&i18n.Message{ID: messageID})
+	if err != nil {
+		return messageID
+	}
+	//return t.localizer.MustLocalize(&i18n.LocalizeConfig{MessageID: messageID})
+	return translatedMsg
+}
+```
+
+
+`InitTranslator`方法用来初始化国际化的，`SetTranslatorLanguage`方法用来设置国际化的语言，`TranslateMessage`方法用来翻译国际化的内容。
+
+`i18.newBundle`方法用来创建一个国际化的bundle
+
+`i18n.NewLocalizer`方法用来创建一个国际化的localizer
+
+`i18n.LocalizeMessage`方法用来翻译国际化的内容。
+
+`i18n.MustLocalize`方法用来翻译国际化的内容，如果翻译失败会panic。
+
 
