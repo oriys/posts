@@ -1,15 +1,12 @@
 baseURL = "/"
 languageCode = "en-us"
 title = "Y.CH.Y"
-theme = "cactus"
-copyright = "Y.CH.Y" # cactus will use title if copyright is not set
-disqusShortname = "example" # Used when comments is enabled. Cactus will use site title if not set
+theme = "PaperMod"
+copyright = "Y.CH.Y"
+disqusShortname = "example"
 googleAnalytics = "G-X1L70M4MM0"
 
-
-# summaryLength = 2
-
-# Main menu which appears below site header.
+# Main menu
 [[menu.main]]
 name = "首页"
 url = "/"
@@ -20,49 +17,51 @@ name = "笔记"
 url = "/books"
 weight = 15
 
-[[menu.main]]
-name = "杂"
-url = "/misc"
-weight = 16
-
-
 [markup]
-  [markup.tableOfContents]
-    endLevel = 4
-    ordered = true
-    startLevel = 1
-  [markup.highlight]
-    style = "monokailight"
-  defaultMarkdownHandler = "goldmark"
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+[markup.tableOfContents]
+endLevel = 4
+ordered = true
+startLevel = 1
+[markup.highlight]
+style = "dracula"
+defaultMarkdownHandler = "goldmark"
+[markup.goldmark]
+[markup.goldmark.renderer]
+unsafe = true
 
 [params]
-  colortheme = "white" # dark, light, white, or classic
-  rss = true # generate rss feed. default value is false
-  googleAnalyticsAsync = true # use asynchronous tracking. Synchronous tracking by default
+# PaperMod specific settings
+defaultTheme = "auto"
+ShowReadingTime = true
+ShowShareButtons = false
+ShowPostNavLinks = true
+ShowBreadCrumbs = true
+ShowCodeCopyButtons = true
 
-  # Home page settings
-  description = ""
-  mainSection = "posts" # your main section
-  mainSections = ["posts"]
-  showAllPostsOnHomePage = false # default
-  showAllPostsArchive = false
-  postsOnHomePage = 123456 # this option will be ignored if showAllPostsOnHomePage is set to true
-  tagsOverview = true # show tags overview by default.
-  showProjectsList = false # show projects list by default (if projects data file exists).
-  projectsUrl = "https://github.com/gohugoio" # title link for projects list
-  css = ["css/custom.css"]
+# Your existing settings
+mainSections = ["posts"]
+description = ""
+dateFormat = "2006 Jan 02"
 
+# Custom CSS
+assets = { css = ["css/custom.css"] }
 
+# Home page settings
+homeInfoParams = { Title = "Y.CH.Y"}
 
-  # https://gohugo.io/functions/format/#hugo-date-and-time-templating-reference
-  dateFormat = "2006 Jan 02" # default
+socialIcons = [
+    # Add your social icons here, for example:
+    # { name = "github", url = "https://github.com/yourusername" }
+]
 
-  # Post page settings
-  show_updated = true # default
+[params.cover]
+linkFullImages = true
 
-  [params.comments]
-    enabled = false # default
-    engine = "disqus" # more supported engines will be added.
+[params.fuseOpts]
+isCaseSensitive = false
+shouldSort = true
+location = 0
+distance = 1000
+threshold = 0.4
+minMatchCharLength = 0
+keys = ["title", "permalink", "summary", "content"]

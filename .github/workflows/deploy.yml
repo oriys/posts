@@ -9,7 +9,7 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2  # v2 does not have submodules option now
+      - uses: actions/checkout@v4
         with:
           submodules: true
           fetch-depth: 0
@@ -20,14 +20,13 @@ jobs:
           hugo-version: 'latest'
           extended: true
 
-
       - name: Build
         run: hugo --minify
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.personal_token }} 
+          personal_token: ${{ secrets.personal_token }}
           external_repository: oriys/oriys.github.io
           publish_dir: ./public
-          publish_branch: main   
+          publish_branch: main
