@@ -2,6 +2,7 @@
 title: "深入理解Java虚拟机::线程安全和锁优化"
 date: 2021-04-12T22:10:56+08:00
 draft: false
+keywords: ["线程安全", "锁优化", "synchronized", "ReentrantLock", "CAS"]
 ---
 
 ## 线程安全和锁优化

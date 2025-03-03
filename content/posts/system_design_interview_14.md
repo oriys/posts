@@ -2,6 +2,7 @@
 title: "系统设计::设计YOUTUBE"
 date: 2021-02-14T22:20:24+08:00
 draft: false
+keywords: ["YouTube设计", "视频流", "系统设计", "视频上传", "CDN"]
 ---
 
 ## 设计 YOUTUBE

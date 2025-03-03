@@ -2,6 +2,7 @@
 title: "编程::现代操作系统"
 date: 2021-07-24T19:12:26+08:00
 draft: true
+keywords: ["现代操作系统", "操作系统原理", "进程与线程", "内存管理", "文件系统"]
 ---
 
 [现代操作系统::引论](../../notes/modern_operating_systems_introduction)

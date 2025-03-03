@@ -2,6 +2,7 @@
 title: "深入理解Java虚拟机::Java 内存模型与线程"
 date: 2021-04-11T22:10:56+08:00
 draft: false
+keywords: ["Java内存模型", "线程安全", "volatile变量", "先行发生原则", "协程"]
 ---
 
 ## Java 内存模型与线程

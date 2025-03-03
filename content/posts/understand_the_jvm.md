@@ -2,6 +2,7 @@
 title: "深入理解Java虚拟机"
 date: 2021-03-31T22:10:56+08:00
 draft: true
+keywords: ["JVM", "Java虚拟机", "内存管理", "垃圾回收", "类加载机制"]
 ---
 
 ## 走进 Java

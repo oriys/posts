@@ -2,6 +2,7 @@
 title: "深入理解Java虚拟机::走进 Java"
 date: 2021-03-31T22:10:56+08:00
 draft: false
+keywords: ["Java虚拟机", "JVM", "JDK", "Java发展史", "HotSpot"]
 ---
 
 ## 走进 Java
