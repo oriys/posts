@@ -12,10 +12,6 @@ name = "首页"
 url = "/"
 weight = 2
 
-[[menu.main]]
-name = "笔记"
-url = "/books"
-weight = 15
 
 [markup]
 [markup.tableOfContents]
