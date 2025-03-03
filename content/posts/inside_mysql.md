@@ -2,6 +2,7 @@
 title: "MySQL技术内幕::InnoDB存储引擎"
 date: 2021-09-11T10:03:18+08:00
 draft: false
+keywords: ["MySQL事务机制", "事务隔离级别", "事务控制语句", "分布式事务", "ACID特性"]
 ---
 
 ## MySQL 体系结构和存储引擎
