@@ -8,10 +8,14 @@ googleAnalytics = "G-X1L70M4MM0"
 
 # Main menu
 [[menu.main]]
-name = "首页"
+name = "Home"
 url = "/"
 weight = 2
 
+[[menu.main]]
+name = "Archive"
+url = "/archives"
+weight = 5
 
 [markup]
 [markup.tableOfContents]
