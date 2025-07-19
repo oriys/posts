@@ -1,5 +1,5 @@
 ---
-title: "代码::Bad Code"
+title: "笔记::坏代码"
 date: 2025-07-18T08:53:17+08:00
 draft: false
 ---
