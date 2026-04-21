@@ -77,12 +77,12 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
 - HTTP 概况
     - Web 的应用层协议是超文本传输协议 (HyperText Transfer Protocol, HTTP) , 它是 Web 的核心
     - HTTP 定义了这些报文的结构以及客户和服务器进行报文交换的方式
-    - Web 页面 (Web page) (也叫文档)是由对象组成的。一个对象 (objeel) 只是一个文件，诸如一个 HTML 文件、一个 JPEG 图形、一个
+    - Web 页面 (Web page) (也叫文档)是由对象组成的。一个对象 (object) 只是一个文件，诸如一个 HTML 文件、一个 JPEG 图形、一个
       Java 小程序或一个视频片段这样的文件，且它们可通过一个 URL 地址寻址。多数 Web 页面含有一个 HTML 基本文件 (baseHTML
       file) 以及几个引用对象。
     - 每个 URL 地址由两部分组成:存放对象的服务器主机名和对象的路径名
     - Web 浏览器 (Web browser) (例如 IE 和 Firefox) 实现了 HTTP 的客户端
-    - Web 服务器 (Weh server) 实现了 HTTP 的服务器端，它用于存储 Web 对象，每个对象由 URL 寻址。
+    - Web 服务器 (Web server) 实现了 HTTP 的服务器端，它用于存储 Web 对象，每个对象由 URL 寻址。
     - HTTP 定义了 Web 客户向 Web 服务器请求 Web 页面的方式，以及服务器向客户传送 Web 页面的方式
     - HTTP 使用 TCP 作为它的支撑运输协议
     - 因为 HTTP 服务器并不保存关于客户的任何信息，所以我们说 HTTP 是一个无状态协议
@@ -97,7 +97,7 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
         - ```http
       GET /somedir/page.html HTTP/1.1
       Host: www.someschool.edu
-      Connection : close
+      Connection: close
       User-agent: Mozilla/5.0
       Accept-language: fr
 
@@ -131,14 +131,13 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
       (data data data data data ...)
       ```
 
-        - 它有三个部分:一个初始状态行 (stalus line), 6 个 首部行 (headerline) , 然后是实体体 (entity body)。
+        - 它有三个部分:一个初始状态行 (status line)，6 个首部行 (header line)，然后是实体体 (entity body)。
           实体体部分是报文的主要部分，即它包含了所请求的对象本身 (表示为 data data data data data ···)。状态行有 3 个字段:
           协议版本字段、状态码和相应状态信息。在这个例子中，状态行指示服务器正在使用 HTTP/1.1 并且一切正常。
         - 服务器用 Connection: close 首部行告诉客户，发送完报文后将关闭该 TCP 连接 。
         - Date: 首部行指示服务器产生并发送该响应报文的日期和时间。值得一提的是，这个时间不是指对象创建或者最后修改的时间，而是服务器从它的文件系统中检索到该对象，将该对象插入响应报文，并发送该响应报文的时间。
         - Server: 首部行指示该报文是由一台 Apache Web 服务器产生的、它类似于 HTTP 请求报文中的 User-agent : 首部行。
-        - Last-Modified: 首部行指示了对象创建或者最后修改的日期和时间。Last-Modified :
-          首部行对既可能在本地客户也可能在网络缓存服务器上的对象缓存来说非状态行常重要。
+        - Last-Modified: 首部行指示了对象创建或者最后修改的日期和时间。Last-Modified：首部行对既可能在本地客户也可能在网络缓存服务器上的对象缓存来说非常重要。
         - Content-Length: 首部行指示了被发送对象中的字节数。
         - Content-Type : 首部行指示了实体体中的对象是 HTML 文本。
 
@@ -198,7 +197,7 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
     To: bob@hamburger.edu
     Subject: Searching for the meaning of life.
     ```
-    - 在报文首部之后，紧接着一个空白行，然后是以 ACSII 格式表示的报文体
+    - 在报文首部之后，紧接着一个空白行，然后是以 ASCII 格式表示的报文体
 - 邮件访问协议
     - POP3 (Post Office Protocol—Version3)
         - POP3 按照三个阶段进行工作:特许(authorization)、事务处理以及更新
@@ -220,7 +219,7 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
 ## DNS：英特网的目录服务
 
 - DNS 提供的服务
-    - 识别主机有两种方式，通过主机名或者 IP 地址。们喜欢便于记忆的主机名标识方式，而路由器则喜欢定长的、有着层次结构的 IP
+    - 识别主机有两种方式，通过主机名或者 IP 地址。人们喜欢便于记忆的主机名标识方式，而路由器则喜欢定长的、有着层次结构的 IP
       地址。为了折中这些不同的偏好，我们需要一种能进行主机名到 IP 地址转换的目录服务。这就是域名系统 (DomainNameSystem,
       DNS) 的主要任务
     - DNS 是:
@@ -307,7 +306,7 @@ keywords: [ "计算机网络", "应用层协议", "HTTP基础", "DNS系统", "P2
             - 附加区域包含了其他有帮助的记录
         - 在 DNS 数据库中插人记录
             - 当你向某些注册登记机构注册域名 networkutopia.com 时，需要向该机构提供你的基本和辅助权威 DNS 服务器的名字和
-              IP 地址，假定该名字和 IP 地址 是 dns1.networkutopia.com 和 dns2.nehvorkutopia.com 及 212.212. 212.1 和
+              IP 地址，假定该名字和 IP 地址 是 dns1.networkutopia.com 和 dns2.networkutopia.com 及 212.212.212.1 和
               212.212.212.2。对这两个权威 DNS 服务器的每一个，该注册登记机构确保将一个类型 NS 和一个类型 A 的记录输入 TLD
               com 服务器 。特别是对于用于 networkutopia.com 的基本权威服务器，该注册登记机构将下列两条资 源记录插入该 DNS
               系统中。

@@ -45,7 +45,7 @@ keywords: ["Java虚拟机", "JVM", "JDK", "Java发展史", "HotSpot"]
     - XML 解析器和 XSLT 转换器
   - 2004.09.30 JDK 5 发布
     - 自动装箱
-    - 范型
+    - 泛型
     - 动态注解
     - 枚举
     - 可变长参数
